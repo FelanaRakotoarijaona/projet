@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>New Sails App</title>
+
+    <!-- Viewport mobile tag for sensible mobile support -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <%/* If you want to discourage search engines from indexing this site, uncomment the following line: */%>
+    <%/* <meta name="robots" content="noindex"> */%>
+
+
+    <!--
+        Stylesheets and Preprocessors
+        ==============================
+
+        You can always bring in CSS files manually with `<link>` tags, or asynchronously
+        using a solution like AMD (RequireJS).  Or, if you like, you can take advantage
+        of Sails' conventional asset pipeline (boilerplate Gruntfile).
+
+        By default, stylesheets from your `assets/styles` folder are included
+        here automatically (between STYLES and STYLES END). Both CSS (.css) and LESS (.less)
+        are supported. In production, your styles will be minified and concatenated into
+        a single file.
+
+        To customize any part of the built-in behavior, just edit `tasks/pipeline.js`.
+        For example, here are a few things you could do:
+
+            + Change the order of your CSS files
+            + Import stylesheets from other directories
+            + Use a different or additional preprocessor, like SASS, SCSS or Stylus
+    -->
+
+    <!--STYLES-->
+    <link rel="stylesheet" href="/styles/bootstrap-grid.css">
+    <link rel="stylesheet" href="/styles/bootstrap-reboot.min.css">
+    <link rel="stylesheet" href="/styles/bootstrap.min.css">
+    <link rel="stylesheet" href="/styles/dashboard.css">
+    <link rel="stylesheet" href="/styles/importer.css">
+    <!--STYLES END-->
+  </head>
+
+  <body>
+    
+    <div class="container">
+      <div>
+        <button type="button" class="btn btn-dark">Saisir une NC</button>
+      </div>
+     
+                                   
+      <form method="POST" action="/update_nc/<%= nc.id %>">
+
+        <div class="form-group">
+          <label for="exampleFormControlSelect2">NC remonté par</label>
+            <input type="text" class="form-control" id="inputCity" name="matricule" value="<%= nc.matricule%>">
+        </div>
+      
+        <div class="form-group">
+          <label for="exampleFormControlSelect1">Département</label>
+          <select class="form-control" id="exampleFormControlSelect1" name="departement" >
+            <option selected="selected"><%= nc.departement%></option>
+            <option>RH</option>
+            <option>Admin</option>
+            <option>Classique</option>
+            <option>BPO Almerys</option>
+            <option>BPO Plano</option>
+          </select>                                   
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlSelect2">Site</label>
+          <select class="form-control" id="exampleFormControlSelect1" name="site" >
+            <option selected="selected"><%= nc.site%></option>
+            <option>Tsiadana</option>
+            <option>Digue</option>
+            <option>Multisites</option>
+           
+          </select>
+
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlSelect1">Nature</label>
+          <select class="form-control" id="natt" name="nature"  oninput="myFunction()">
+            <option selected="selected"><%= nc.nature%></option>
+            <option>Réclamation client</option>
+            <option>Dysfonctionnement</option>
+            <option>Audit</option>
+         
+          </select>                                   
+        </div>
+
+        <div class="form-group">
+          <label for="exampleFormControlSelect1">Domaine</label>
+          <select class="form-control" id="exampleFormControlSelect1" name="domaine" >
+            <option selected="selected"><%= nc.domaine%></option>
+            <option>Qualité</option>
+            <option>Continuité d'activité</option>
+            
+          </select>  
+        </div>
+          <div class="form-group">
+            <label for="exampleFormControlSelect2">Processus</label>
+            <select class="form-control" id="exampleFormControlSelect1" name="processus" value="<%= nc.processus%>">
+              <option selected="selected"><%= nc.processus%></option>
+              <option>Management des politiques</option>
+              <option>Management des systèmes</option>
+              <option>Client</option>
+              <option>Planification de la production</option>
+              <option>BPO</option>
+              <option>Patrimonial et dématérialisation</option>
+              <option>Centre de contact</option>
+              <option>contrôle qualité</option>
+              <option>IT</option>
+              <option>Logistique et services généraux</option>
+              <option>Développement et méthode</option>
+              <option>RH</option>
+              <option>Achats</option>
+              <option>Echange de données</option>
+             
+            </select>
+  
+          </div>
+          <div class="form-group">
+            <label for="exampleFormControlSelect2">Pôle</label>
+            <select class="form-control" id="exampleFormControlSelect1" name="pole" >
+              <option selected="selected"><%= nc.pole%></option>
+              <option>HTP</option>
+              <option>Garanties et traitement particuliers</option>
+              <option>TPS TPC</option>
+              <option>Contentieux</option>
+              <option>CQ Formation</option>
+              <option>Relation clients</option>
+              <option>Be-itys</option>
+              <option>Neocles</option>
+              <option>Plano</option>
+              <option>FILAE</option>
+             
+            </select>
+  
+          </div>
+          
+          <div class="form-group">
+            <label for="exampleFormControlSelect2">Traitement/Projet</label>
+              <input type="text" class="form-control" id="matr" name="traitproj"  value="<%= nc.traitproj%>">
+          </div>
+          
+          <div class="form-group">
+            <label for="exampleFormControlTextarea1">Sujet de la NC</label>
+            <label for="exampleFormControlTextarea1"><h6>(synthèse très courte du problème)</h6></label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="sujet" >
+              <%= nc.sujet%>
+            </textarea>
+          </div>
+          <div class="form-group">
+            <label for="exampleFormControlTextarea1">Date de l'évènement</label>
+          <div class="input-group date" data-provide="datepicker">
+            
+            <input class="datepicker" type="date" data-date-format="mm/dd/yyyy" name="datevent" value="<%= nc.datevent%>">
+        </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="exampleFormControlSelect2">Client concerné</label>
+              <input type="text" class="form-control" id="clientc" name="clientcon" value="<%= nc.clientcon%>">
+          </div>
+          <div class="form-group">
+            <label for="exampleFormControlTextarea1">Délai prévu du traitement</label>
+          <div class="input-group date" data-provide="datepicker" >
+            
+            <input class="datepicker" type="date"  data-date-format="mm/dd/yyyy"  id="delaii" name="delai" value="<%= nc.delai%>" oninput="myFunctionDelai()">
+         
+        </div>
+       
+          </div>
+          <div class="form-group">
+            <label for="exampleFormControlSelect1">Statut</label>
+            <select class="form-control" id="exampleFormControlSelect1" name="statut" >
+              <option selected="selected"><%= nc.statut%></option>
+              <option>En attente d'analyse</option>
+              <option>En cours de finalisation</option>
+              <option>En attente validation manager</option>
+              <option>A revoir</option>
+              <option>En attente validation direction</option>
+              <option>Analyse validée-AC en cours</option>
+              <option>AC en cours de vérification</option>
+           
+            </select>                                   
+          </div>
+                <div class="form-group">
+
+                  <button type="submit" class="btn btn-primary" onclick="myFunctionCliquer()">Enregistrer</button>
+                  <button type="button" class="btn btn-secondary">Annuler</button>
+                </div>                          
+        
+              </form>
+
+              <div class="row">
+
+             <div class="col">
+
+             
+
+      <form method="POST" action="/cause_nc/<%= nc.id %>">
+      <div class="form-group">
+        <h3>NC numéro : NC#00<%= nc.id%> , intitulé : <%= nc.nature%></h3>
+        <div class="form-group">
+          <input type="text" class="form-control" id="inputCity" name="numnc" value="<%= nc.id%>">
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlTextarea1">Cause 1</label>
+          <label for="exampleFormControlTextarea1"></label>
+          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="causea" >
+          
+          </textarea>
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlTextarea2">Cause 2</label>
+          <label for="exampleFormControlTextarea2"></label>
+          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="causeb">
+           
+          </textarea>
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlTextarea2">Cause 3</label>
+          <label for="exampleFormControlTextarea2"></label>
+          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="causec">
+        
+          </textarea>
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlTextarea2">Cause 4</label>
+          <label for="exampleFormControlTextarea2"></label>
+          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="caused">
+         
+          </textarea>
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlTextarea2">Cause 5</label>
+          <label for="exampleFormControlTextarea2"></label>
+          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="causee">
+           
+          </textarea>
+        </div>
+        <div class="form-group">
+          <button type="button" class="btn btn-dark" onclick="affichage()">Ajouter une autre cause
+          </button>
+          
+         
+        </div>
+        <div class="form-group"  id="autre" >
+          <label for="exampleFormControlTextarea2">Autre cause</label>
+          <label for="exampleFormControlTextarea2"></label>
+          <textarea class="form-control"rows="3" name="causef" >
+           
+          </textarea>
+      </div>
+      <div class="form-group">
+
+        <button type="submit" class="btn btn-primary">Enregistrer les causes</button>
+        <button type="button" class="btn btn-secondary">Annuler</button>
+      </div> 
+
+     
+
+      </form>
+    </div>
+    </div>
+    <div class="col">
+      <h3>« Se référer à aux 5M : Matière-Matériel-Main d’œuvre-Méthode-Milieu » </h3>
+     <p>Matière</p>
+     <p>Milieu</p>
+     <p>Méthodes</p>
+     <p>Matériel</p>
+     <p>Main d'oeuvre</p>
+    </div>
+    </div>
+  
+  
+
+    <% include ../footer.ejs %> 
+
+
+   
+
+    <!--SCRIPTS-->
+    <script src="/dependencies/sails.io.js"></script>
+    <script src="/js/bootstrap.bundle.js"></script>
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/bootstrap.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/jquery-1.11.1.min.js"></script>
+    <!--SCRIPTS END-->
+
+
+    <script>
+
+$( "#autre" ).hide();
+
+
+      function myFunction() {
+ var x = document.getElementById("natt").value;
+ if(x=="Audit"||"Dysfonctionnement"){
+  $("#clientc").val("INTERNE");
+  $("#clientc").prop('disabled', true);
+  }
+  if(x=="Réclamation client")
+  {
+   $("#clientc").prop('disabled', false);
+   $("#clientc").val("");
+  }
+ }
+
+ function myFunctionDelai(){
+   var y = document.getElementById("delaii").value;
+   var daty = new Date(y);
+   daty.setDate(daty.getDate(y) + 15);
+   var a=getEngFormatedDate(daty);
+  //alert(a.date);
+   //$("#delaii").val((daty).formatDate('mm/dd/yyyy'));
+   $("#delaii").val(a.date);
+   
+}
+  
+ 
+ function getEngFormatedDate(date ) {
+   let dd = date.getDate();
+   let mm = date.getMonth() + 1;
+   let yyyy = date.getFullYear();
+   let hh = date.getHours();
+   let MM  = date.getMinutes();
+   let ss = date.getSeconds();
+
+   if(dd < 10) dd = '0' + dd;
+   if(mm < 10) mm = '0' + mm;
+   if(hh < 10) hh = '0' + hh;
+   if(MM < 10) MM = '0' + MM;
+   if(ss < 10) ss = '0' + ss;
+
+    let results =  {
+     date : yyyy + '-' + mm + '-' + dd,
+     heure : hh + ':' + MM + ':' + ss
+   }
+    return results;
+ }
+    
+ function myFunctionCliquer() {
+   $("#clientc").prop('disabled', false);
+  
+ }
+
+ function affichage(){
+  $( "#autre" ).show();
+ }
+      
+  </script> 
+  
+ 

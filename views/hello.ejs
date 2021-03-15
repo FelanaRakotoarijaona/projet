@@ -1,0 +1,223 @@
+<% include header.ejs %> 
+      <section class="wrapper">
+        <div class="row">
+          <div class="col-lg-9 main-chart">
+            <!--CUSTOM CHART START -->
+            <div class="border-head">
+              <h3>TABLEAU DE BORD GLOBALE</h3>
+            </div>
+         
+            <div class="container">
+              <h3>Mes NC</h3>
+              <br>
+              <table id="example" class="table table-striped table-bordered" style="width:100%">
+                  <thead>
+                      <tr>
+                        <th>Numéro</th>
+                        <th>Matricule</th>
+                          <th>Departement</th>
+                          <th>Site</th>
+                          <th>Nature</th>
+                          <th>Domaine</th>
+                          <th>Processus</th>
+                          <th>Pole</th>
+                          <th>traitproj</th>
+                          <th>Sujet</th>
+                          <th>Date de l'évènement</th>
+                          <th>Délai</th>
+                          <th>Statut</th>
+                          <th>Client concerné</th>
+                          <th>Modifier</th>
+                          <th>Assigner une action à la NC</th>
+                          
+                      </tr>
+                  </thead>
+                  <tbody>
+                    <% for (var i=0; i <nc.length; i++){
+                      %>
+                          <tr>  
+                            <td>NC#00<%= nc[i].id %></td>     
+                            <td><%= nc[i].matricule %></td>      
+                              <td><%= nc[i].departement %></td>
+                              <td><%= nc[i].site %></td>
+                              <td><%= nc[i].nature %></td>
+                              <td><%= nc[i].domaine %></td>
+                              <td><%= nc[i].processus %></td>
+                              <td><%= nc[i].pole %></td>
+                              <td><%= nc[i].traitproj %></td>
+                              <td><%= nc[i].sujet %></td>
+                              <td><%= nc[i].datevent %></td>
+                              <td><%= nc[i].statut %></td>
+                              <td><%= nc[i].delai %></td>
+                              <td><%= nc[i].clientcon %></td>
+                              <td>
+                                <a href="modif_nc/<%= nc[i].id %>" class="btn btn-info btn-sm">
+                                  <span class="glyphicon glyphicon-pencil"></span> modifier 
+                              </a>
+                               
+                              </td>
+                              <td>
+                                <a href="ass_ac/<%= nc[i].id %>" class="btn btn-info btn-sm"  data-toggle="modal" data-target="#exampleModal">
+                                  <span class="glyphicon glyphicon-pencil"></span> Assigner une action 
+                              </a>
+                               <!-- Button trigger modal -->
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Ajouter une action à la NC#00<%= nc[i].id %></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" action="/inserer">
+          <div class="form-group">
+            <label for="exampleFormControlInput1">Intitulé de l'action</label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" name="intitule">
+          </div>
+          <div class="form-group">
+            <label for="exampleFormControlSelect1">Type de l'action</label>
+            <select class="form-control" id="exampleFormControlSelect1" name="type">
+              <option>corrective</option>
+              <option>Préventive</option>
+              <option>amélioration</option>
+              
+            </select>
+          </div>
+          <div class="form-group" id="origine">
+            <label for="exampleFormControlInput1">Origine</label>
+            <input type="text" class="form-control" id="exampleFormControlInput1"  name="origine" value="NC">
+          </div>
+          <div class="form-group">
+            <label for="exampleFormControlSelect1">Statut</label>
+            <select class="form-control" id="exampleFormControlSelect1" name="statut">
+              <option>Non commencée</option>
+              <option>En cours</option>
+              <option>Terminée</option>
+              <option>Différée</option>
+              
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="exampleFormControlTextarea1">DDL</label>
+          <div class="input-group date" data-provide="datepicker">
+            
+            <input class="datepicker" type="date" data-date-format="mm/dd/yyyy" name="ddl" >
+        </div>
+          </div>
+          <div class="form-group" id="ncas">
+            <label for="exampleFormControlInput1">NC Associée</label>
+            <input type="text" class="form-control"  name="ncas" value="NC#00<%= nc[i].id %>">
+          </div>
+          <div class="form-group" id="site">
+            <label for="exampleFormControlSelect2">Site</label>
+            <select class="form-control" id="exampleFormControlSelect1" name="site" >
+              <option selected="selected"><%= nc[i].site %></option>
+              <option>Tsiadana</option>
+              <option>Digue</option>
+              <option>Multisites</option>
+             
+            </select>
+  
+          </div>
+          <div class="form-group" id="processus">
+            <label for="exampleFormControlSelect2">Processus</label>
+            <select class="form-control" id="exampleFormControlSelect1" name="processus">
+              <option selected="selected"><%= nc[i].processus %></option>
+              <option>Management des politiques</option>
+              <option>Management des systèmes</option>
+              <option>Client</option>
+              <option>Planification de la production</option>
+              <option>BPO</option>
+              <option>Patrimonial et dématérialisation</option>
+              <option>Centre de contact</option>
+              <option>contrôle qualité</option>
+              <option>IT</option>
+              <option>Logistique et services généraux</option>
+              <option>Développement et méthode</option>
+              <option>RH</option>
+              <option>Achats</option>
+              <option>Echange de données</option>
+             
+            </select>
+  
+          </div>
+          <div class="form-group">
+            <label for="exampleFormControlSelect1">Périmètre</label>
+            <div>
+              <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="Tous les pôles" name="perimetre">
+              <label class="form-check-label" for="inlineCheckbox1">Tous les pôles</label>  
+            </div>
+            <div>
+              <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="Tous les départements prod" name="perimetre">
+              <label class="form-check-label" for="inlineCheckbox1">Tous les départements prod</label>  
+            </div>
+            <div>
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="Tous les départements transverses" name="perimetre">
+                <label class="form-check-label" for="inlineCheckbox1">Tous les départements transverses</label>  
+              </div>
+              <div>
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="Projets concernés" name="perimetre">
+                <label class="form-check-label" for="inlineCheckbox1">Projet concerné</label>  
+              </div>
+           
+              <div class="form-group">
+                <label for="exampleFormControlSelect1">Responsable</label>
+                <select class="form-control" id="exampleFormControlSelect1" name="responsable">
+                  <option>Manager département</option>
+                  <option>Manager pôles</option>
+                  
+                </select>
+              </div>      
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">Délai mesure efficacité</label>
+              <div class="input-group date" data-provide="datepicker">
+                
+                <input class="datepicker" type="date" data-date-format="mm/dd/yyyy" name="delef">
+            </div>
+          </div>
+            <div class="form-group">
+              <label for="exampleFormControlInput1">Critère d'efficacité</label>
+              <input type="text" class="form-control" id="exampleFormControlInput1" name="critere">
+            </div>                      
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+            <button type="submit" class="btn btn-info">Enregistrer</button>
+          </div>
+        </form>
+
+
+      </div>
+      
+    </div>
+  </div>
+</div>
+                              </td>
+                          </tr>
+                          <%
+                      }
+                  %>
+                                                           
+                  </tbody>
+                  
+              
+              </table>
+              
+          </div>           
+          <script src="/js/jquery-1.11.1.min.js"></script>
+          <script>
+            $( document ).ready(function() {
+              $( "#origine" ).hide();
+              $( "#ncas" ).hide();
+              $( "#site" ).hide();
+              $( "#processus" ).hide();
+
+            });
+           
+          </script>
+      </section>
+      <% include footer.ejs %> 

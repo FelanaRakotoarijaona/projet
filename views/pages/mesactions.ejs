@@ -1,0 +1,69 @@
+<% include ../header.ejs %> 
+      <section class="wrapper">
+        <div class="row">
+          <div class="col-lg-9 main-chart">
+            <!--CUSTOM CHART START -->
+            <div class="border-head">
+              <h3>MES ACTIONS</h3>
+            </div>
+         
+            <div class="container">
+           
+
+
+<table id="example" class="table table-striped table-bordered" style="width:100%">
+    <thead>
+        <tr>
+          <th>id</th>
+          <th>Intitulé de l'action</th>
+          <th>Type de l'action</th>
+            <th>Origine</th>
+            <th>DDL</th>
+            <th>NC Associée</th>
+            <th>Site</th>
+            <th>Processus</th>
+            <th>Périmètre</th>
+            <th>Responsable</th>
+            <th>Délai mesure d'efficacité</th>
+            <th>Critère d'efficacité</th>
+            
+          
+            
+        </tr>
+    </thead>
+    <tbody>
+      <% for (var i=0; i <ac.length; i++){
+        %>
+            <tr>  
+              <td><%= ac[i].id %></td> 
+              <td><%= ac[i].intitule %></td>     
+              <td><%= ac[i].type %></td>      
+              <td><%= ac[i].origine %></td>  
+              <td><%= ac[i].ddl %></td>  
+              <td><%= ac[i].ncas %></td>  
+              <td><%= ac[i].site %></td>
+              <td><%= ac[i].processus %></td>
+              <td><%= ac[i].perimetre %></td>
+              <td><%= ac[i].responsable %></td>
+              <td><%= ac[i].delef %></td>
+              <td><%= ac[i].critere %></td>
+            
+               
+                
+                <td>
+                  <a href="modif_nc/<%= ac[i].id %>" class="btn btn-info btn-sm">
+                    <span class="glyphicon glyphicon-pencil"></span> modifier 
+                </a>
+                 
+                </td>
+            </tr>
+            <%
+        }
+    %>
+                                             
+    </tbody>
+    
+
+</table>
+            </div>
+<% include ../footer.ejs %> 
